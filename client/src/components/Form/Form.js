@@ -1,46 +1,47 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { titleSelector, storySelector } from '../../selectors';
-import { addPost } from '../../actions/posts';
+import { postSelector } from '../../selectors';
+import { createPost } from '../../actions/posts';
 
 
 class Form extends Component {
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('working!');
+  handleTitle = (e) => {
+    this.props.dispatch({ type: 'CHANGE_TITLE', payload: e.target.value});
   }
-
-  handleChangedTitle = (e) => {
-    this.props.dispatch({ type: 'ADD_POST', payload: e.target.value});
+  handleMessage = (e) => {
+    this.props.dispatch({ type: 'CHANGE_MESSAGE', payload: e.target.value});
   }
-  
-  handleChangedStory = (e) => {
-    this.props.dispatch({ type: 'ADD_POST', payload: e.target.value});
+  handleCreator = (e) => {
+    this.props.dispatch({ type: 'CHANGE_CREATOR', payload: e.target.value});
   }
   
   render() {
-    console.log( 'Form render ', this.props.state)
+    console.log( 'Form render ', this.props.title)
     return (
       <div className="form-container">
-        <form className="form" onSubmit={this.handleSubmit}>
+        <form className="form" onSubmit={createPost(this.props.post)}>
           <label forhtml='title'>Title:</label>
           <input 
             id='title' 
             name="title" 
             value={this.props.title} 
-            onChange={this.handleChangedTitle}
+            onChange={this.handleTitle}
           />
-
-          <label forhtml='story'>Tell your story:</label>
-          <textarea 
-            id='story' 
-            name="story" 
-            value={this.props.story} 
-            onChange={this.handleChangedStory}
-          >
-          </textarea>
-
+          <label forhtml='creator'>Creator:</label>
+          <input 
+            id='creator' 
+            name="creator" 
+            value={this.props.creator} 
+            onChange={this.handleCreator}
+          />
+          <label forhtml='message'>Message:</label>
+          <input 
+            id='message' 
+            name="message" 
+            value={this.props.message} 
+            onChange={this.handleMessage}
+          />
           <button type="submit">Save</button>
         </form>
       </div>
@@ -51,14 +52,14 @@ class Form extends Component {
 const mapStateToProps = (state) => {
   console.log('Global State ', state);
   return {
-    title: titleSelector(state),
-    story: storySelector(state),
+    posts: postSelector(state),
+    post: {
+      title: state.post.title,
+      message: state.post.message,
+      creator: state.post.creator,
+    }
   };
 };
 
-const mapDispatchToProps = {
-  addPost
-}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps)(Form);
