@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  justify-content: center;
+  text-align: center;
+}
+
+.header {
+  border: 2px solid purple;
+  padding: 20px;
+  color: purple
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.posts-container {
+  width: 70%;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  padding: 20px;
+}
+
+.form-container {
+  border: 1px solid black;
+  padding: 20px;
+  width: 30%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.post {
+  border: 1px solid  black;
+
+}
