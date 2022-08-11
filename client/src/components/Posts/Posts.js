@@ -12,11 +12,9 @@ class Posts extends Component {
     console.log('posts ', this.props.posts)
     return (
       <div className="posts-container"> 
-        <div>
-          {this.props.posts.map(post => (
-            <Post key={post._id} {...post} />
-          ))}
-        </div>
+       {this.props.posts.map(post => (
+          <Post key={post._id} {...post} />
+        ))}
       </div>
     );
   }

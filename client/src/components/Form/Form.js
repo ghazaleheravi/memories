@@ -16,26 +16,26 @@ class Form extends Component {
       <div className="form-container">
         <h4>Create New Memory</h4>
         <form className="form" onSubmit={this.handleSubmit}>
-          <label forhtml='title'>Title:</label>
-          <input 
-            id='title' 
-            name="title" 
-            value={this.props.title} 
-            onChange={(e) => 
-              this.props.dispatch({ type: 'CHANGE_TITLE', payload: e.target.value})
-            }
-          />
           <label forhtml='creator'>Creator:</label>
           <input 
-            id='creator' 
+            id="creator"
             name="creator" 
             value={this.props.creator} 
             onChange={(e) => 
               this.props.dispatch({ type: 'CHANGE_CREATOR', payload: e.target.value})
             }
           />
-          <label forhtml='message'>Message:</label>
+          <label forhtml='title'>Title:</label>
           <input 
+            id="title"
+            name="title" 
+            value={this.props.title} 
+            onChange={(e) => 
+              this.props.dispatch({ type: 'CHANGE_TITLE', payload: e.target.value})
+            }
+          />
+          <label forhtml='message'>Message:</label>
+          <textarea 
             id='message' 
             name="message" 
             value={this.props.message} 
@@ -43,6 +43,16 @@ class Form extends Component {
               this.props.dispatch({ type: 'CHANGE_MESSAGE', payload: e.target.value})
             }
           />
+          <label forhtml="tags">Tags:</label>
+          <input 
+            id="tags"
+            name="tags" 
+            value={this.props.tags} 
+            onChange={(e) => 
+              this.props.dispatch({ type: 'CHANGE_TAGS', payload: e.target.value})
+            }
+          />
+
           <div>
             <label forhtml="file">Choose file to upload</label>
             <input 
