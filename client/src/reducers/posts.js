@@ -1,13 +1,3 @@
-const initalState = {
-  posts: [],
-  post: {
-    title: '',
-    message: '',
-    creator: '',
-  }
-};
-
-
 /*title: String,
   message: String,
   creator: String,
@@ -22,15 +12,28 @@ const initalState = {
     default: new Date()
   }
   */
+const initalState = {
+  posts: [],
+  post: {
+    title: '',
+    message: '',
+    creator: '',
+    file: '',
+  }
+};
 
 const reducer = (state = initalState, action) => {
-  console.log('reducer ', state, action);
-
-  switch(action.type){
-    case 'ADD_POST':
+  console.log('reducer ', state, action);  
+  switch(action.type) {
+    case 'GET_POSTS':
+      return { 
+        ...state,
+        posts: action.payload,
+      };
+    case 'CREATE_POST':
       return {
-        ...state, 
-        posts: [...state.posts, state.post],
+        ...state,
+        posts: [...state.posts, action.payload],
       };
     case 'CHANGE_TITLE':
       return {
@@ -54,6 +57,14 @@ const reducer = (state = initalState, action) => {
         post: {
           ...state.post,
           creator: action.payload
+        }
+      }  
+    case 'CHANGE_FILE':
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          file: action.payload
         }
       }  
     default:

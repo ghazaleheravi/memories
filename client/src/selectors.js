@@ -1,2 +1,2 @@
-export const postSelector = state => state.posts.posts;
+export const postSelector = state => state.posts;
 

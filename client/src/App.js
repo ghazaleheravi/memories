@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
 
-
 class App extends Component {
   render() {
     console.log('render ', this.props);
