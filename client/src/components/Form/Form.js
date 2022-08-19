@@ -1,71 +1,104 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { postSelector } from '../../selectors';
+//import { postSelector } from '../../selectors';
 import { createPost } from '../../actions/posts';
-//import FileBase from 'react-file-base64';
+import FileBase from 'react-file-base64';
 
 class Form extends Component {  
   handleSubmit = (e) => {
     e.preventDefault();
+    //const formData = new FormData();
+    //formData.append('file', file);
     this.props.dispatch(createPost(this.props.post));
+  }
+
+  inputOfArray = (input) => {
+    if (input) {
+      console.log(input.split(','))
+      return input.split(',');
+    }
   }
 
   render() {
     //console.log( 'posts ', this.props.posts)
     return (
       <div className="form-container">
-        <h4>Create New Memory</h4>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <label forhtml='creator'>Creator:</label>
+        <h2>Create New Memory</h2>
+        <form 
+          className="form" 
+          onSubmit={this.handleSubmit} 
+          //encode file input content same as FormData() in JS
+          //encType="multipart/form-data"
+        >
+          <label htmlFor='creator'>Creator:</label>
           <input 
             id="creator"
             name="creator" 
-            value={this.props.creator} 
+            value={this.props.creator}
+            maxLength="12" 
+            required
             onChange={(e) => 
               this.props.dispatch({ type: 'CHANGE_CREATOR', payload: e.target.value})
             }
           />
-          <label forhtml='title'>Title:</label>
+          <label htmlFor='location'>Location:</label>
           <input 
-            id="title"
-            name="title" 
-            value={this.props.title} 
+            id="location"
+            name="location" 
+            value={this.props.location}
+            required 
             onChange={(e) => 
-              this.props.dispatch({ type: 'CHANGE_TITLE', payload: e.target.value})
+              this.props.dispatch({ type: 'CHANGE_LOCATION', payload: e.target.value})
             }
           />
-          <label forhtml='message'>Message:</label>
+          <label htmlFor='message'>Message:</label>
           <textarea 
             id='message' 
-            name="message" 
+            name="message"
+            rows="8"
+            cols="33"
             value={this.props.message} 
             onChange={(e) => 
               this.props.dispatch({ type: 'CHANGE_MESSAGE', payload: e.target.value})
             }
           />
-          <label forhtml="tags">Tags:</label>
+          <label htmlFor="tags">Tags:</label>
           <input 
             id="tags"
             name="tags" 
             value={this.props.tags} 
             onChange={(e) => 
-              this.props.dispatch({ type: 'CHANGE_TAGS', payload: e.target.value})
+              this.props.dispatch({ type: 'CHANGE_TAGS', payload: this.inputOfArray(e.target.value)})
             }
           />
 
           <div>
-            <label forhtml="file">Choose file to upload</label>
-            <input 
-              id='file' 
-              name="file"
-              type="file" 
-              value={this.props.file} 
-              onChange={(e) => 
-                this.props.dispatch({ type: 'CHANGE_FILE', payload: e.target.value})
-              }
+            <label htmlFor="file">Choose file to upload</label>
+           <FileBase
+              type="file"
+              multiple={ false }
+              onDone={({base64}) => this.props.dispatch({ type: 'CHANGE_FILE', payload: base64})}
             />
+             {/*
+            <input
+              type="file" 
+              name="file"
+              id="file"
+              value={this.props.file}
+              onChange={(e) => 
+                this.props.dispatch( {type: 'CHANGE_FILE', payload: e.target.files[0]})
+              }
+            />*/}
           </div>
-          <button type="submit">Save</button>
+          <div className="form-buttons">
+            <button type="submit" className="submit">Save</button>
+            <button 
+              type="button" 
+              className="cancel"
+              >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -78,10 +111,11 @@ const mapStateToProps = (state) => {
   return {
     //posts: state.posts,
     post: {
-      title: state.post.title,
+      location: state.post.location,
       message: state.post.message,
       creator: state.post.creator,
       file: state.post.file,
+      tags: state.post.tags,
     }
   };
 };

@@ -15,11 +15,12 @@
 const initalState = {
   posts: [],
   post: {
-    title: '',
+    location: '',
     message: '',
     creator: '',
     file: '',
-  }
+    tags: [],
+  },
 };
 
 const reducer = (state = initalState, action) => {
@@ -35,14 +36,14 @@ const reducer = (state = initalState, action) => {
         ...state,
         posts: [...state.posts, action.payload],
       };
-    case 'CHANGE_TITLE':
+    case 'CHANGE_LOCATION':
       return {
         ...state,
         post: {
           ...state.post,
-          title: action.payload
+          location: action.payload
         }
-      }  
+      };  
     case 'CHANGE_MESSAGE':
       return {
         ...state,
@@ -50,7 +51,7 @@ const reducer = (state = initalState, action) => {
           ...state.post,
           message: action.payload
         }
-      }  
+      };  
     case 'CHANGE_CREATOR':
       return {
         ...state,
@@ -66,7 +67,15 @@ const reducer = (state = initalState, action) => {
           ...state.post,
           file: action.payload
         }
-      }  
+      };  
+    case 'CHANGE_TAGS':
+      return { 
+        ...state,
+        post: {
+          ...state.post,
+          tags: action.payload
+        }
+      };
     default:
       return state;  
   }

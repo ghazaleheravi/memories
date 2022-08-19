@@ -11,6 +11,7 @@ class Posts extends Component {
   render() {
     console.log('posts ', this.props.posts)
     return (
+      !this.props.posts.length ? 'nothing found' :
       <div className="posts-container"> 
        {this.props.posts.map(post => (
           <Post key={post._id} {...post} />

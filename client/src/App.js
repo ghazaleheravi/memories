@@ -7,7 +7,7 @@ class App extends Component {
     console.log('render ', this.props);
     return (
       <div className='App'>
-        <h1 className='header'>Memories</h1>
+        <div className='header'></div>
         <div className='main'>
           <Posts />
           <Form  />
